@@ -44,6 +44,11 @@ dependencies {
 	implementation 'org.springdoc:springdoc-openapi-ui:1.6.15'
 }
 
+bootJar {
+	archiveFileName = 'app.jar'
+}
+
 tasks.named('test') {
 	useJUnitPlatform()
 }
+

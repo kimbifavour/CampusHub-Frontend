@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.togglz.core.manager.FeatureManager;
+
+import static com.campushub.backend.configurations.togglz.Features.CREATE_USER;
 
 @RestController
 @RequestMapping("/user") //TODO change url
@@ -23,11 +26,18 @@ public class UserController {
     @Autowired
     ModelMapper modelMapper;
 
+    @Autowired
+    FeatureManager featureManager;
+
     @PostMapping("/create-user")
     public ResponseEntity<UserResponseDTO> createUser(@RequestBody UserRequestDTO userRequestDTO) throws Exception{
-        User user = modelMapper.map(userRequestDTO, User.class);
-        User createdUser = userService.createUser(user);
-        UserResponseDTO userResponseDTO = modelMapper.map(createdUser, UserResponseDTO.class);
-        return new ResponseEntity<>(userResponseDTO, HttpStatus.CREATED);
+        if (featureManager.isActive(CREATE_USER)) {
+            User user = modelMapper.map(userRequestDTO, User.class);
+            User createdUser = userService.createUser(user);
+            UserResponseDTO userResponseDTO = modelMapper.map(createdUser, UserResponseDTO.class);
+            return new ResponseEntity<>(userResponseDTO, HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>(new UserResponseDTO(), HttpStatus.FORBIDDEN);
+        }
     }
 }

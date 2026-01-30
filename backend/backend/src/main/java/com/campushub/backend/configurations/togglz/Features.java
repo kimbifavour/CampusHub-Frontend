@@ -8,7 +8,11 @@ import org.togglz.core.context.FeatureContext;
 public enum Features implements Feature {
     @Label("CreateUser")
     @EnabledByDefault
-    CREATE_USER;
+    CREATE_USER,
+
+    @Label("CreateLisitng")
+    @EnabledByDefault
+    CREATE_LISTING;
 
 
 

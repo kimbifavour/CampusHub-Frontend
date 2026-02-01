@@ -19,5 +19,7 @@ public class ListingRequestDTO {
 
     private Date date;
 
+    private String category;
+
     private UUID userId;
 }

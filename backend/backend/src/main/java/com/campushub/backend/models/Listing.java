@@ -32,6 +32,9 @@ public class Listing {
     @Column(name = "creationDate", nullable = false)
     private Date creationDate;
 
+    @Column(name = "category")
+    private String category;
+
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;

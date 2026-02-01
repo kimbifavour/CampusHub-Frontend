@@ -21,5 +21,7 @@ public class ListingResponseDTO {
 
     private Date date;
 
+    private String category;
+
     private UUID userId;
 }

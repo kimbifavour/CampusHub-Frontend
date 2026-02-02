@@ -6,6 +6,7 @@ import com.campushub.backend.models.Listing;
 import com.campushub.backend.models.User;
 import com.campushub.backend.services.ListingService;
 import com.campushub.backend.services.UserService;
+import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,7 +38,7 @@ public class ListingController {
     FeatureManager featureManager;
 
         @PostMapping("/create-listing")
-        public ResponseEntity<ListingResponseDTO> createListing(@RequestBody ListingRequestDTO listingRequestDTO) throws Exception {
+        public ResponseEntity<ListingResponseDTO> createListing(@Valid @RequestBody ListingRequestDTO listingRequestDTO) throws Exception {
             if (featureManager.isActive(CREATE_LISTING)) {
                 Listing listing = new Listing();
                 listing.setTitle(listingRequestDTO.getTitle());

@@ -4,6 +4,7 @@ import com.campushub.backend.dtos.user.UserRequestDTO;
 import com.campushub.backend.dtos.user.UserResponseDTO;
 import com.campushub.backend.models.User;
 import com.campushub.backend.services.UserService;
+import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,7 +31,7 @@ public class UserController {
     FeatureManager featureManager;
 
     @PostMapping("/create-user")
-    public ResponseEntity<UserResponseDTO> createUser(@RequestBody UserRequestDTO userRequestDTO) throws Exception{
+    public ResponseEntity<UserResponseDTO> createUser(@Valid @RequestBody UserRequestDTO userRequestDTO) throws Exception{
         if (featureManager.isActive(CREATE_USER)) {
             User user = modelMapper.map(userRequestDTO, User.class);
             User createdUser = userService.createUser(user);

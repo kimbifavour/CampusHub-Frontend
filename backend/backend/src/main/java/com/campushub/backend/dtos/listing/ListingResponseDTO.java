@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
@@ -19,7 +20,7 @@ public class ListingResponseDTO {
 
     private BigDecimal price;
 
-    private Date date;
+    private LocalDateTime date;
 
     private String category;
 

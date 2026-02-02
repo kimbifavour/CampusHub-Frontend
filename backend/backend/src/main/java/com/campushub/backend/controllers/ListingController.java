@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.togglz.core.manager.FeatureManager;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import static com.campushub.backend.configurations.togglz.Features.CREATE_LISTING;
@@ -44,7 +45,7 @@ public class ListingController {
                 listing.setTitle(listingRequestDTO.getTitle());
                 listing.setDescription(listingRequestDTO.getDescription());
                 listing.setPrice(listingRequestDTO.getPrice());
-                listing.setCreationDate(listingRequestDTO.getDate() != null ? listingRequestDTO.getDate() : new Date());
+                listing.setCreationDate(LocalDateTime.now());
 
                 User user = userService.findById(listingRequestDTO.getUserId()).get();
 

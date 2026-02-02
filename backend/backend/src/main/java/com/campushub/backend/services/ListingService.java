@@ -6,8 +6,6 @@ import com.campushub.backend.repositories.ListingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class ListingService {
@@ -16,6 +14,8 @@ public class ListingService {
     ListingRepository listingRepository;
 
     public Listing createListing(Listing listing) {
+        User user = listing.getUser();
+        user.addListing(listing);
         return listingRepository.save(listing);
     }
 

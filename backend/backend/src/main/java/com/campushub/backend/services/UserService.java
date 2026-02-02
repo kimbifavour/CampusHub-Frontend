@@ -1,5 +1,6 @@
 package com.campushub.backend.services;
 
+import com.campushub.backend.enums.UserStatus;
 import com.campushub.backend.models.User;
 import com.campushub.backend.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ public class UserService {
     UserRepository userRepository;
 
     public User createUser(User user) {
+        user.setStatus(UserStatus.PENDING);
         return userRepository.save(user);
     }
 

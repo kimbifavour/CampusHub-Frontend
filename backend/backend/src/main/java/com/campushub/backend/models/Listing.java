@@ -6,7 +6,7 @@ import lombok.Setter;
 import org.hibernate.envers.Audited;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -30,7 +30,7 @@ public class Listing {
     private BigDecimal price;
 
     @Column(name = "creationDate", nullable = false)
-    private Date creationDate;
+    private LocalDateTime creationDate;
 
     @Column(name = "category")
     private String category;

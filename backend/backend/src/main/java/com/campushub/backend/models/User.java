@@ -1,33 +1,71 @@
-package com.campushub.backend.models;
+    package com.campushub.backend.models;
 
-import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import org.hibernate.envers.Audited;
+    import com.campushub.backend.enums.UserStatus;
+    import jakarta.persistence.*;
+    import lombok.Getter;
+    import lombok.Setter;
+    import org.hibernate.envers.Audited;
 
-import java.util.List;
-import java.util.UUID;
+    import java.time.LocalDateTime;
+    import java.util.ArrayList;
+    import java.util.List;
+    import java.util.UUID;
 
-@Entity
-@Table(name = "users")
-@Getter
-@Setter
-@Audited
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "user_id", nullable = false, unique = true)
-    private UUID id;
+    @Entity
+    @Table(name = "users")
+    @Getter
+    @Setter
+    @Audited
+    public class User {
+        @Id
+        @GeneratedValue(strategy = GenerationType.AUTO)
+        @Column(name = "user_id", nullable = false, unique = true)
+        private UUID id;
 
-    @Column(name = "username", nullable = false, unique = true)
-    private String username;
+        @Column(name = "username", nullable = false, unique = true, length = 50)
+        private String username;
 
-    @Column(name = "email", nullable = false, unique = true)
-    private String email;
+        @Column(name = "first_name", nullable = false, length = 100)
+        private String firstName;
 
-    @Column(name = "password", nullable = false)
-    private String password; //TODO encript passwords, should not be stored as strings.
+        @Column(name = "last_name", nullable = false, length = 100)
+        private String lastName;
 
-    @OneToMany(mappedBy = "user", orphanRemoval = true)
-    private List<Listing> listings;
-}
+        @Column(name = "email", nullable = false, unique = true, length = 255)
+        private String email;
+
+        @Column(name = "phone_number", unique = true, length = 20)
+        private String phoneNumber;
+
+        @Column(nullable = false, updatable = false)
+        private LocalDateTime createdAt;
+
+        @PrePersist
+        protected void onCreate() {
+            createdAt = LocalDateTime.now();
+            updatedAt = LocalDateTime.now();
+        }
+
+        @Column(nullable = false)
+        private LocalDateTime updatedAt;
+
+        @PreUpdate
+        protected void onUpdate() {
+            updatedAt = LocalDateTime.now();
+        }
+
+        @Enumerated(EnumType.STRING)
+        @Column(nullable = false, length = 20)
+        private UserStatus status = UserStatus.PENDING;
+
+        @Column(name = "password", nullable = false)
+        private String password; //TODO encript passwords, should not be stored as strings.
+
+        @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+        private List<Listing> listings = new ArrayList<>();
+
+        public void addListing(Listing listing) {
+            listings.add(listing);
+            listing.setUser(this);
+        }
+    }

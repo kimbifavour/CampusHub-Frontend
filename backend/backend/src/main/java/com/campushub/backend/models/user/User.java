@@ -1,6 +1,7 @@
-    package com.campushub.backend.models;
+    package com.campushub.backend.models.user;
 
-    import com.campushub.backend.enums.UserStatus;
+    import com.campushub.backend.enums.user.UserStatus;
+    import com.campushub.backend.models.listings.Listing;
     import jakarta.persistence.*;
     import lombok.Getter;
     import lombok.Setter;
@@ -62,10 +63,18 @@
         private String password; //TODO encript passwords, should not be stored as strings.
 
         @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-        private List<Listing> listings = new ArrayList<>();
+        private List<Listing> postedListings = new ArrayList<>();
+
+        @OneToMany(mappedBy = "buyer")
+        private List<Listing> purchasedListings = new ArrayList<>();
 
         public void addListing(Listing listing) {
-            listings.add(listing);
+            postedListings.add(listing);
             listing.setUser(this);
+        }
+
+        public void addPurchase(Listing listing) {
+            purchasedListings.add(listing);
+            listing.setBuyer(this);
         }
     }

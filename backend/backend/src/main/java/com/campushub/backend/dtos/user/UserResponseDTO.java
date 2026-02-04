@@ -1,6 +1,6 @@
 package com.campushub.backend.dtos.user;
 
-import com.campushub.backend.enums.UserStatus;
+import com.campushub.backend.enums.user.UserStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

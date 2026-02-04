@@ -2,8 +2,8 @@ package com.campushub.backend.controllers;
 
 import com.campushub.backend.dtos.user.UserRequestDTO;
 import com.campushub.backend.dtos.user.UserResponseDTO;
-import com.campushub.backend.models.User;
-import com.campushub.backend.services.UserService;
+import com.campushub.backend.models.user.User;
+import com.campushub.backend.services.user.UserService;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

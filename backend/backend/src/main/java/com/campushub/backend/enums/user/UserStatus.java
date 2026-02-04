@@ -1,4 +1,4 @@
-package com.campushub.backend.enums;
+package com.campushub.backend.enums.user;
 
 public enum UserStatus {
     ACTIVE,        // normal user

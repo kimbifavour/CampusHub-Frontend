@@ -1,18 +1,22 @@
 package com.campushub.backend.dtos.listing;
 
+import com.campushub.backend.enums.listings.ListingStatus;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.UUID;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ListingResponseDTO {
 
-    private UUID id;
+    private UUID listingId;
 
     private String title;
 
@@ -20,9 +24,15 @@ public class ListingResponseDTO {
 
     private BigDecimal price;
 
-    private LocalDateTime date;
+    private ListingStatus status;
 
-    private String category;
+    private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt;
 
     private UUID userId;
+
+    private UUID buyerId;
+
+    private String categoryName;
 }

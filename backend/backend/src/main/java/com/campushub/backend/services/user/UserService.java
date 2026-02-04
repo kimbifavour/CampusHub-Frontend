@@ -1,7 +1,7 @@
-package com.campushub.backend.services;
+package com.campushub.backend.services.user;
 
-import com.campushub.backend.enums.UserStatus;
-import com.campushub.backend.models.User;
+import com.campushub.backend.enums.user.UserStatus;
+import com.campushub.backend.models.user.User;
 import com.campushub.backend.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

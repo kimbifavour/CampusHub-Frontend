@@ -40,7 +40,7 @@ public class CategoryController {
         return new ResponseEntity<>(categoryResponseDTO, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/delete-category/{categoryId}")
+    @DeleteMapping("/delete-category-by-id/{categoryId}")
     public ResponseEntity<CategoryResponseDTO> deleteCategory(@PathVariable UUID categoryId) {
         if (!featureManager.isActive(DELETE_CATEGORY_BY_ID)) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
@@ -52,7 +52,7 @@ public class CategoryController {
         return new ResponseEntity<>(categoryResponseDTO, HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete-category/{categoryName}")
+    @DeleteMapping("/delete-category-by-name/{categoryName}")
     public ResponseEntity<CategoryResponseDTO> deleteCategory(@PathVariable String categoryName) {
         if (!featureManager.isActive(DELETE_CATEGORY_BY_NAME)) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);

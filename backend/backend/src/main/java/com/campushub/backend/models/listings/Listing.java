@@ -58,10 +58,6 @@ public class Listing {
     @OneToMany(mappedBy = "listing", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ListingImage> listingImages = new ArrayList<>();
 
-    @Version
-    @Column(name = "version")
-    private Long version;
-
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();

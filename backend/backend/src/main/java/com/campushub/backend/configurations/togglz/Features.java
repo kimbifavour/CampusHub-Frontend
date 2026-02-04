@@ -6,87 +6,88 @@ import org.togglz.core.annotation.EnabledByDefault;
 import org.togglz.core.context.FeatureContext;
 
 public enum Features implements Feature {
+
     //-----------------------
-    //USER APIs
+    // USER APIs
     //-----------------------
-    @Label("CreateUser")
+    @Label("USER - CreateUser")
     @EnabledByDefault
     CREATE_USER,
 
-    @Label("DeleteUser")
+    @Label("USER - DeleteUser")
     @EnabledByDefault
     DELETE_USER,
 
-    @Label("GetUser")
+    @Label("USER - GetUser")
     @EnabledByDefault
     GET_USER,
 
     //-----------------------
-    //Listing APIs
+    // LISTING APIs
     //-----------------------
-    @Label("CreateListing")
+    @Label("LISTING - CreateListing")
     @EnabledByDefault
     CREATE_LISTING,
 
-    @Label("BuyListing")
+    @Label("LISTING - BuyListing")
     @EnabledByDefault
     BUY_LISTING,
 
-    @Label("GetAllListings")
+    @Label("LISTING - GetAllListings")
     @EnabledByDefault
     GET_ALL_LISTINGS,
 
-    @Label("GetAllListingsByUser")
+    @Label("LISTING - GetAllListingsByUser")
     @EnabledByDefault
     GET_ALL_LISTINGS_BY_USER,
 
-    @Label("GetAllListingsByCategory")
+    @Label("LISTING - GetAllListingsByCategory")
     @EnabledByDefault
     GET_ALL_LISTINGS_BY_CATEGORY,
 
-    @Label("DeleteListing")
+    @Label("LISTING - DeleteListing")
     @EnabledByDefault
     DELETE_LISTING,
 
     //-----------------------
-    //Category APIs
+    // CATEGORY APIs
     //-----------------------
-    @Label("CreateCategory")
+    @Label("CATEGORY - CreateCategory")
     @EnabledByDefault
     CREATE_CATEGORY,
 
-    @Label("DeleteCategoryById")
+    @Label("CATEGORY - DeleteCategoryById")
     @EnabledByDefault
     DELETE_CATEGORY_BY_ID,
 
-    @Label("DeleteCategoryByName")
+    @Label("CATEGORY - DeleteCategoryByName")
     @EnabledByDefault
     DELETE_CATEGORY_BY_NAME,
 
-    @Label("GetAllCategories")
+    @Label("CATEGORY - GetAllCategories")
     @EnabledByDefault
     GET_ALL_CATEGORIES,
 
     //-----------------------
-    //ListingImage APIs
+    // LISTINGIMAGE APIs
     //-----------------------
-    @Label("UploadListingImage")
+    @Label("LISTINGIMAGE - UploadListingImage")
     @EnabledByDefault
     UPLOAD_LISTING_IMAGE,
 
-    @Label("DownloadListingImage")
+    @Label("LISTINGIMAGE - DownloadListingImage")
     @EnabledByDefault
     DOWNLOAD_LISTING_IMAGE,
 
-    @Label("GetListingImages")
+    @Label("LISTINGIMAGE - GetListingImages")
     @EnabledByDefault
     GET_LISTING_IMAGES,
 
-    @Label("DeleteListingImage")
+    @Label("LISTINGIMAGE - DeleteListingImage")
     @EnabledByDefault
     DELETE_LISTING_IMAGE;
+
     public boolean isActive(){
         return FeatureContext.getFeatureManager().isActive(this);
     }
-
 }

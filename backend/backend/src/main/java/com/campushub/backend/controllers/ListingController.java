@@ -1,5 +1,6 @@
 package com.campushub.backend.controllers;
 
+import com.campushub.backend.dtos.category.CategoryResponseDTO;
 import com.campushub.backend.dtos.listing.ListingRequestDTO;
 import com.campushub.backend.dtos.listing.ListingResponseDTO;
 import com.campushub.backend.enums.listings.ListingStatus;
@@ -19,6 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 import org.togglz.core.manager.FeatureManager;
 
 
+import java.util.List;
 import java.util.UUID;
 
 import static com.campushub.backend.configurations.togglz.Features.CREATE_LISTING;
@@ -50,9 +52,7 @@ public class ListingController {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
 
-        User user = userService.findById(listingRequestDTO.getUserId())
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND, "User not found"));
+        User user = userService.findById(listingRequestDTO.getUserId());
 
         Listing listing = new Listing();
         listing.setTitle(listingRequestDTO.getTitle());
@@ -100,5 +100,39 @@ public class ListingController {
         response.setStatus(listing.getListingStatus());
 
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/get-listings")
+    public ResponseEntity<List<ListingResponseDTO>> getAllListings() {
+        List<Listing> listings = listingService.getAllListings();
+        List<ListingResponseDTO> listingResponseDTOS = listings.stream()
+                .map(category -> modelMapper.map(listings, ListingResponseDTO.class))
+                .toList();
+        return new ResponseEntity<>(listingResponseDTOS, HttpStatus.OK);
+    }
+
+    @GetMapping("/get-listings-by-user/{userId}")
+    public ResponseEntity<List<ListingResponseDTO>> getAllListingsByUser(@PathVariable UUID userId) {
+        List<Listing> listings = listingService.getAllListingsByUser(userId);
+        List<ListingResponseDTO> listingResponseDTOS = listings.stream()
+                .map(category -> modelMapper.map(listings, ListingResponseDTO.class))
+                .toList();
+        return new ResponseEntity<>(listingResponseDTOS, HttpStatus.OK);
+    }
+
+    @GetMapping("/get-listings-by-category/{categoryName}")
+    public ResponseEntity<List<ListingResponseDTO>> getAllListingsByCategory(@PathVariable String categoryName) {
+        List<Listing> listings = listingService.getAllListingsByCategory(categoryName);
+        List<ListingResponseDTO> listingResponseDTOS = listings.stream()
+                .map(category -> modelMapper.map(listings, ListingResponseDTO.class))
+                .toList();
+        return new ResponseEntity<>(listingResponseDTOS, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete-listing/{listingId}")
+    public ResponseEntity<ListingResponseDTO> deleteListing(@PathVariable UUID listingId) {
+        Listing listing = listingService.deleteListingById(listingId);
+        ListingResponseDTO listingResponseDTO = modelMapper.map(listing, ListingResponseDTO.class);
+        return new ResponseEntity<>(listingResponseDTO, HttpStatus.OK);
     }
 }

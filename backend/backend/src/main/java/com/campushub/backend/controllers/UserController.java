@@ -9,11 +9,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.togglz.core.manager.FeatureManager;
+
+import java.util.UUID;
 
 import static com.campushub.backend.configurations.togglz.Features.CREATE_USER;
 
@@ -40,5 +39,12 @@ public class UserController {
         } else {
             return new ResponseEntity<>(new UserResponseDTO(), HttpStatus.FORBIDDEN);
         }
+    }
+
+    @DeleteMapping("/delete-user/{id}")
+    public ResponseEntity<UserResponseDTO> deleteUser(@PathVariable UUID userId) {
+        User user = userService.deleteUserById(userId);
+        UserResponseDTO userResponseDTO = modelMapper.map(user, UserResponseDTO.class);
+        return new ResponseEntity<>(userResponseDTO, HttpStatus.OK);
     }
 }

@@ -6,8 +6,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.envers.Audited;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
-import java.sql.Blob;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -24,17 +26,26 @@ public class ListingImage {
     @Column(name = "image_id")
     private UUID imageId;
 
+    @NotBlank
+    @Column(name = "file_name")
     private String fileName;
 
+    @NotBlank
+    @Column(name = "file_type")
     private String fileType;
 
     @Lob
-    @Column(name = "image")
-    private Blob image;
+    @Column(name = "image_data")
+    @NotNull
+    private byte[] imageData;
 
-    private String downloadUrl;
+    @Column(name = "file_size")
+    private Long fileSize;
 
-    @ManyToOne
-    @JoinColumn(name = "listing_id")
+    @Column(name = "upload_date")
+    private LocalDateTime uploadDate;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "listing_id", nullable = false)
     private Listing listing;
 }

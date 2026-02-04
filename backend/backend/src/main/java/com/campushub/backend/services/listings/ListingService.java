@@ -1,6 +1,7 @@
 package com.campushub.backend.services.listings;
 
 import com.campushub.backend.enums.listings.ListingStatus;
+import com.campushub.backend.exceptions.ListingNotFoundException;
 import com.campushub.backend.models.listings.Listing;
 import com.campushub.backend.models.user.User;
 import com.campushub.backend.repositories.ListingRepository;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -42,6 +44,27 @@ public class ListingService {
                     "Listing was modified by another transaction. Please retry."
             );
         }
+    }
+
+    public List<Listing> getAllListings() {
+        return listingRepository.findAll();
+    }
+
+    public List<Listing> getAllListingsByUser(UUID userId) {
+        return listingRepository.findByUserId(userId);
+    }
+
+    public List<Listing> getAllListingsByCategory(String categoryName) {
+        return listingRepository.findByCategoryName(categoryName);
+    }
+
+
+    @Transactional
+    public Listing deleteListingById(UUID listingId) {
+        Listing listing = listingRepository.findById(listingId)
+                .orElseThrow(() -> new ListingNotFoundException("Listing not found with id: " + listingId));
+        listingRepository.delete(listing);
+        return listing;
     }
 
     @Transactional

@@ -1,0 +1,21 @@
+# IntelliJ / IDE
+.idea
+*.iml
+
+# Build artifacts
+build/*
+!build/libs
+!build/libs/**
+out/
+.gradle/
+
+# OS files
+.DS_Store
+
+# Secrets
+.env
+application-local.properties
+
+# Logs, tmp
+*.log
+tmp/

@@ -23,7 +23,7 @@ import org.togglz.core.manager.FeatureManager;
 import java.util.List;
 import java.util.UUID;
 
-import static com.campushub.backend.configurations.togglz.Features.CREATE_LISTING;
+import static com.campushub.backend.configurations.togglz.Features.*;
 
 @RestController
 @RequestMapping("/listings")
@@ -82,10 +82,13 @@ public class ListingController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{listingId}/buy")
+    @PutMapping("/{listingId}/buy-listing")
     public ResponseEntity<ListingResponseDTO> buyListing(
             @PathVariable UUID listingId,
             @RequestParam UUID buyerId) throws Exception {
+        if (!featureManager.isActive(BUY_LISTING)) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
 
         Listing listing = listingService.buyListing(listingId, buyerId);
 
@@ -104,6 +107,9 @@ public class ListingController {
 
     @GetMapping("/get-listings")
     public ResponseEntity<List<ListingResponseDTO>> getAllListings() {
+        if (!featureManager.isActive(GET_ALL_LISTINGS)) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
         List<Listing> listings = listingService.getAllListings();
         List<ListingResponseDTO> listingResponseDTOS = listings.stream()
                 .map(category -> modelMapper.map(listings, ListingResponseDTO.class))
@@ -113,6 +119,9 @@ public class ListingController {
 
     @GetMapping("/get-listings-by-user/{userId}")
     public ResponseEntity<List<ListingResponseDTO>> getAllListingsByUser(@PathVariable UUID userId) {
+        if (!featureManager.isActive(GET_ALL_LISTINGS_BY_USER)) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
         List<Listing> listings = listingService.getAllListingsByUser(userId);
         List<ListingResponseDTO> listingResponseDTOS = listings.stream()
                 .map(category -> modelMapper.map(listings, ListingResponseDTO.class))
@@ -122,6 +131,9 @@ public class ListingController {
 
     @GetMapping("/get-listings-by-category/{categoryName}")
     public ResponseEntity<List<ListingResponseDTO>> getAllListingsByCategory(@PathVariable String categoryName) {
+        if (!featureManager.isActive(GET_ALL_LISTINGS_BY_CATEGORY)) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
         List<Listing> listings = listingService.getAllListingsByCategory(categoryName);
         List<ListingResponseDTO> listingResponseDTOS = listings.stream()
                 .map(category -> modelMapper.map(listings, ListingResponseDTO.class))
@@ -131,6 +143,9 @@ public class ListingController {
 
     @DeleteMapping("/delete-listing/{listingId}")
     public ResponseEntity<ListingResponseDTO> deleteListing(@PathVariable UUID listingId) {
+        if (!featureManager.isActive(DELETE_LISTING)) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
         Listing listing = listingService.deleteListingById(listingId);
         ListingResponseDTO listingResponseDTO = modelMapper.map(listing, ListingResponseDTO.class);
         return new ResponseEntity<>(listingResponseDTO, HttpStatus.OK);

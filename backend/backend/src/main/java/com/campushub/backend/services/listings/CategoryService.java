@@ -30,6 +30,13 @@ public class CategoryService {
         return category;
     }
 
+    public Category deleteCategoryByName(String name) {
+        Category category = categoryRepository.findByName(name)
+                .orElseThrow(() -> new CategoryNotFoundException("Category not found with name: " + name));
+        categoryRepository.delete(category);
+        return category;
+    }
+
     public List<Category> findAllCategories() {
         return categoryRepository.findAll();
     }

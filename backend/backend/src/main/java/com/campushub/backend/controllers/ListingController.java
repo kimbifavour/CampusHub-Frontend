@@ -24,7 +24,7 @@ import java.util.UUID;
 import static com.campushub.backend.configurations.togglz.Features.CREATE_LISTING;
 
 @RestController
-@RequestMapping("/api/listings")
+@RequestMapping("/listings")
 public class ListingController {
 
     @Autowired

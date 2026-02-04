@@ -18,7 +18,7 @@ import org.togglz.core.manager.FeatureManager;
 import static com.campushub.backend.configurations.togglz.Features.CREATE_USER;
 
 @RestController
-@RequestMapping("/user") //TODO change url
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired

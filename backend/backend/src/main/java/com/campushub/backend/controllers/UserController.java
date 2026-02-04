@@ -40,7 +40,7 @@ public class UserController {
         return new ResponseEntity<>(userResponseDTO, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/delete-user/{id}")
+    @DeleteMapping("/delete-user/{userId}")
     public ResponseEntity<UserResponseDTO> deleteUser(@PathVariable UUID userId) {
         if (!featureManager.isActive(DELETE_USER)) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);

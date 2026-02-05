@@ -69,11 +69,12 @@ public class ListingImageService {
     }
 
     @Transactional
-    public void deleteImage(UUID imageId) {
+    public ListingImage deleteImage(UUID imageId) {
         ListingImage image = listingImageRepository.findById(imageId)
                 .orElseThrow(() -> new RuntimeException("Image not found with id: " + imageId));
 
         listingImageRepository.delete(image);
+        return image;
     }
 
     @Transactional

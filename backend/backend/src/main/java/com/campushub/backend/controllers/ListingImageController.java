@@ -81,13 +81,14 @@ public class ListingImageController {
     }
 
     @DeleteMapping("/delete-listing-image/{imageId}")
-    public ResponseEntity<Void> deleteImage(@PathVariable UUID imageId) {
+    public ResponseEntity<ListingImageResponseDTO> deleteImage(@PathVariable UUID imageId) {
         if (!featureManager.isActive(DELETE_LISTING_IMAGE)) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
         try {
-            listingImageService.deleteImage(imageId);
-            return ResponseEntity.noContent().build();
+            ListingImage listingImage = listingImageService.deleteImage(imageId);
+            ListingImageResponseDTO listingImageResponseDTO = modelMapper.map(listingImage, ListingImageResponseDTO.class);
+            return new ResponseEntity<>(listingImageResponseDTO, HttpStatus.OK);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }

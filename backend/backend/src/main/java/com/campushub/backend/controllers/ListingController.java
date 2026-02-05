@@ -112,7 +112,7 @@ public class ListingController {
         }
         List<Listing> listings = listingService.getAllListings();
         List<ListingResponseDTO> listingResponseDTOS = listings.stream()
-                .map(category -> modelMapper.map(listings, ListingResponseDTO.class))
+                .map(listing -> modelMapper.map(listing, ListingResponseDTO.class))
                 .toList();
         return new ResponseEntity<>(listingResponseDTOS, HttpStatus.OK);
     }
@@ -124,7 +124,7 @@ public class ListingController {
         }
         List<Listing> listings = listingService.getAllListingsByUser(userId);
         List<ListingResponseDTO> listingResponseDTOS = listings.stream()
-                .map(category -> modelMapper.map(listings, ListingResponseDTO.class))
+                .map(listing -> modelMapper.map(listing, ListingResponseDTO.class))
                 .toList();
         return new ResponseEntity<>(listingResponseDTOS, HttpStatus.OK);
     }
@@ -136,7 +136,7 @@ public class ListingController {
         }
         List<Listing> listings = listingService.getAllListingsByCategory(categoryName);
         List<ListingResponseDTO> listingResponseDTOS = listings.stream()
-                .map(category -> modelMapper.map(listings, ListingResponseDTO.class))
+                .map(listing -> modelMapper.map(listing, ListingResponseDTO.class))
                 .toList();
         return new ResponseEntity<>(listingResponseDTOS, HttpStatus.OK);
     }

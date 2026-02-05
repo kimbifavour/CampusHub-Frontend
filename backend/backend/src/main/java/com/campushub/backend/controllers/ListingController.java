@@ -82,7 +82,7 @@ public class ListingController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{listingId}/buy-listing")
+    @PutMapping("/buy-listing/{listingId}")
     public ResponseEntity<ListingResponseDTO> buyListing(
             @PathVariable UUID listingId,
             @RequestParam UUID buyerId) throws Exception {

@@ -75,7 +75,7 @@ public class UserController {
         if (!featureManager.isActive(GET_USER_BY_EMAIL)) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
-        User user = userService.findByUsername(email);
+        User user = userService.findByEmail(email);
         UserResponseDTO userResponseDTO = modelMapper.map(user, UserResponseDTO.class);
         return new ResponseEntity<>(userResponseDTO, HttpStatus.OK);
     }

@@ -18,9 +18,17 @@ public enum Features implements Feature {
     @EnabledByDefault
     DELETE_USER,
 
-    @Label("USER - GetUser")
+    @Label("USER - GetUserById")
     @EnabledByDefault
-    GET_USER,
+    GET_USER_BY_ID,
+
+    @Label("USER - GetUserByUsername")
+    @EnabledByDefault
+    GET_USER_BY_USERNAME,
+
+    @Label("USER - GetUserByEmail")
+    @EnabledByDefault
+    GET_USER_BY_EMAIL,
 
     //-----------------------
     // LISTING APIs

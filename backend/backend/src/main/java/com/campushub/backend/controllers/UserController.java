@@ -52,7 +52,7 @@ public class UserController {
 
     @GetMapping("/get-user-by-id/{userId}")
     public ResponseEntity<UserResponseDTO> getUserById(@PathVariable UUID userId) {
-        if (!featureManager.isActive(GET_USER)) {
+        if (!featureManager.isActive(GET_USER_BY_ID)) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
         User user = userService.findById(userId);
@@ -62,7 +62,7 @@ public class UserController {
 
     @GetMapping("/get-user-by-username/{username}")
     public ResponseEntity<UserResponseDTO> getUserByUsername(@PathVariable String username) {
-        if (!featureManager.isActive(GET_USER)) {
+        if (!featureManager.isActive(GET_USER_BY_USERNAME)) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
         User user = userService.findByUsername(username);
@@ -72,7 +72,7 @@ public class UserController {
 
     @GetMapping("/get-user-by-email/{email}")
     public ResponseEntity<UserResponseDTO> getUserByEmail(@PathVariable String email) {
-        if (!featureManager.isActive(GET_USER)) {
+        if (!featureManager.isActive(GET_USER_BY_EMAIL)) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
         User user = userService.findByUsername(email);

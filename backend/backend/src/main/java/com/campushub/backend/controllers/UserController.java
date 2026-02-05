@@ -50,12 +50,32 @@ public class UserController {
         return new ResponseEntity<>(userResponseDTO, HttpStatus.OK);
     }
 
-    @GetMapping("/get-user/{userId}")
-    public ResponseEntity<UserResponseDTO> getUser(@PathVariable UUID userId) {
+    @GetMapping("/get-user-by-id/{userId}")
+    public ResponseEntity<UserResponseDTO> getUserById(@PathVariable UUID userId) {
         if (!featureManager.isActive(GET_USER)) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
         User user = userService.findById(userId);
+        UserResponseDTO userResponseDTO = modelMapper.map(user, UserResponseDTO.class);
+        return new ResponseEntity<>(userResponseDTO, HttpStatus.OK);
+    }
+
+    @GetMapping("/get-user-by-username/{username}")
+    public ResponseEntity<UserResponseDTO> getUserByUsername(@PathVariable String username) {
+        if (!featureManager.isActive(GET_USER)) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        User user = userService.findByUsername(username);
+        UserResponseDTO userResponseDTO = modelMapper.map(user, UserResponseDTO.class);
+        return new ResponseEntity<>(userResponseDTO, HttpStatus.OK);
+    }
+
+    @GetMapping("/get-user-by-email/{email}")
+    public ResponseEntity<UserResponseDTO> getUserByEmail(@PathVariable String email) {
+        if (!featureManager.isActive(GET_USER)) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        User user = userService.findByUsername(email);
         UserResponseDTO userResponseDTO = modelMapper.map(user, UserResponseDTO.class);
         return new ResponseEntity<>(userResponseDTO, HttpStatus.OK);
     }

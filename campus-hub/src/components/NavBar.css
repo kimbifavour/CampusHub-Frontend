@@ -1,0 +1,56 @@
+.nav{
+    margin: 0;
+    padding: 0 0 10px 0 ;
+    background-color: white;
+    box-shadow: 0px 8px 20px 0px rgba(0,0,0,0.2);
+    
+}
+
+.container{
+    padding: 10px 0 0 0;
+    display: flex;
+    font-family: 'Instrument Sans', sans-serif;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo{
+    width: 18rem;
+    height: 4.5rem;
+}
+
+.list{
+    list-style: none;
+    padding-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.list-item{
+    margin-right: 20px;
+}
+
+.list-item > a{
+    text-decoration: none;
+    color: black;
+}
+
+a.active{
+    color: #008ECC;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.student{
+    padding-top: 15px;
+}
+.student > .welcome{
+    font-weight: bold;
+    font-size: 1.3rem;
+    margin-bottom: 0;
+}
+
+.student > .uni-name{
+    font-size: .9rem;
+    text-align: right;
+}

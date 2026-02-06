@@ -1,6 +1,6 @@
 package com.campushub.backend.services.listings;
 
-import com.campushub.backend.exceptions.CategoryNotFoundException;
+import com.campushub.backend.exceptions.category.CategoryNotFoundException;
 import com.campushub.backend.models.listings.Category;
 import com.campushub.backend.repositories.listing.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;

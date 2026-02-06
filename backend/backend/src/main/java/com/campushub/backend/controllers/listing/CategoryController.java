@@ -1,9 +1,11 @@
-package com.campushub.backend.controllers;
+package com.campushub.backend.controllers.listing;
 
 import com.campushub.backend.dtos.category.CategoryRequestDTO;
 import com.campushub.backend.dtos.category.CategoryResponseDTO;
 import com.campushub.backend.models.listings.Category;
 import com.campushub.backend.services.listings.CategoryService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +21,7 @@ import static com.campushub.backend.configurations.togglz.Features.*;
 
 @RestController
 @RequestMapping("/category")
+@Tag(name = "Category", description = "Category related operations")
 public class CategoryController {
     @Autowired
     CategoryService categoryService;
@@ -30,6 +33,8 @@ public class CategoryController {
     FeatureManager featureManager;
 
     @PostMapping("/create-category")
+    @Operation(summary = "Create Category",
+            description = "Creates a new category in the system. Returns the created category's details.")
     public ResponseEntity<CategoryResponseDTO> createCategory(@RequestBody CategoryRequestDTO categoryRequestDTO) {
         if (!featureManager.isActive(CREATE_CATEGORY)) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
@@ -41,6 +46,8 @@ public class CategoryController {
     }
 
     @DeleteMapping("/delete-category-by-id/{categoryId}")
+    @Operation(summary = "Delete Category by ID",
+            description = "Deletes an existing category using its UUID. Returns the deleted category's details.")
     public ResponseEntity<CategoryResponseDTO> deleteCategory(@PathVariable UUID categoryId) {
         if (!featureManager.isActive(DELETE_CATEGORY_BY_ID)) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
@@ -53,6 +60,8 @@ public class CategoryController {
     }
 
     @DeleteMapping("/delete-category-by-name/{categoryName}")
+    @Operation(summary = "Delete Category by Name",
+            description = "Deletes an existing category using its name. Returns the deleted category's details.")
     public ResponseEntity<CategoryResponseDTO> deleteCategory(@PathVariable String categoryName) {
         if (!featureManager.isActive(DELETE_CATEGORY_BY_NAME)) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
@@ -65,6 +74,8 @@ public class CategoryController {
     }
 
     @GetMapping("/get-all-categories")
+    @Operation(summary = "Get All Categories",
+            description = "Retrieves all categories available in the system and returns them all in a list.")
     public ResponseEntity<List<CategoryResponseDTO>> getAllCategories() {
         if (!featureManager.isActive(GET_ALL_CATEGORIES)) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);

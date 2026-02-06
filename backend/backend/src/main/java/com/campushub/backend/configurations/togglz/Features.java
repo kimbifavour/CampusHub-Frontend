@@ -93,7 +93,26 @@ public enum Features implements Feature {
 
     @Label("LISTINGIMAGE - DeleteListingImage")
     @EnabledByDefault
-    DELETE_LISTING_IMAGE;
+    DELETE_LISTING_IMAGE,
+
+    //-----------------------
+    // Cart APIs
+    //-----------------------
+    @Label("CART - GetCartItems")
+    @EnabledByDefault
+    GET_CART_ITEMS,
+
+
+    //-----------------------
+    // CartItem APIs
+    //-----------------------
+    @Label("CARTITEM - CreateCartItem")
+    @EnabledByDefault
+    CREATE_CART_ITEM,
+
+    @Label("CARTITEM - DeleteCartItem")
+    @EnabledByDefault
+    DELETE_CART_ITEM;
 
     public boolean isActive(){
         return FeatureContext.getFeatureManager().isActive(this);

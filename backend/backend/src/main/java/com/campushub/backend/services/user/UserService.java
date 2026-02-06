@@ -1,14 +1,15 @@
 package com.campushub.backend.services.user;
 
 import com.campushub.backend.enums.user.UserStatus;
-import com.campushub.backend.exceptions.UserNotFoundException;
+import com.campushub.backend.exceptions.User.UserNotFoundException;
+import com.campushub.backend.models.cart.Cart;
 import com.campushub.backend.models.user.User;
-import com.campushub.backend.repositories.UserRepository;
+import com.campushub.backend.repositories.user.UserRepository;
+import com.campushub.backend.services.cart.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -16,8 +17,14 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    CartService cartService;
+
     public User createUser(User user) {
         user.setStatus(UserStatus.PENDING);
+        Cart cart = new Cart();
+        cart.setUser(user);
+        user.setCart(cart);
         return userRepository.save(user);
     }
 

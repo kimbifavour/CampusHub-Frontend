@@ -1,4 +1,4 @@
-package com.campushub.backend.repositories;
+package com.campushub.backend.repositories.user;
 
 import com.campushub.backend.models.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;

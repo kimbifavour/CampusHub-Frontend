@@ -2,7 +2,9 @@ package com.campushub.backend.controllers;
 
 import com.campushub.backend.dtos.user.UserRequestDTO;
 import com.campushub.backend.dtos.user.UserResponseDTO;
+import com.campushub.backend.models.cart.Cart;
 import com.campushub.backend.models.user.User;
+import com.campushub.backend.services.cart.CartService;
 import com.campushub.backend.services.user.UserService;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;

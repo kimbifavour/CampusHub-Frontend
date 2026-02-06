@@ -1,6 +1,7 @@
     package com.campushub.backend.models.user;
 
     import com.campushub.backend.enums.user.UserStatus;
+    import com.campushub.backend.models.cart.Cart;
     import com.campushub.backend.models.listings.Listing;
     import jakarta.persistence.*;
     import lombok.Getter;
@@ -67,6 +68,9 @@
 
         @OneToMany(mappedBy = "buyer")
         private List<Listing> purchasedListings = new ArrayList<>();
+
+        @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+        private Cart cart;
 
         public void addListing(Listing listing) {
             postedListings.add(listing);

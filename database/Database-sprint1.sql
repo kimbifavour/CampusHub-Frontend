@@ -77,3 +77,4 @@ CREATE INDEX ix_listing_user     ON listing(user_id);
 CREATE INDEX ix_listing_category ON listing(category_id);
 CREATE INDEX ix_wanted_user      ON wanted_item(user_id);
 CREATE INDEX ix_wanted_category  ON wanted_item(category_id);
+

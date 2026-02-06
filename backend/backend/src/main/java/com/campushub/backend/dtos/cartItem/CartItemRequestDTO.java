@@ -20,4 +20,7 @@ public class CartItemRequestDTO {
 
     @Min(value = 1, message = "Unit price must be positive")
     private BigDecimal unitPrice;
+
+    @NotNull(message = "Cart id is required")
+    private UUID cartId;
 }

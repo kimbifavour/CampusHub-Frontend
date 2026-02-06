@@ -36,8 +36,9 @@ public class CartItemService {
         BigDecimal itemTotalPrice = cartItem.getUnitPrice().multiply(BigDecimal.valueOf(cartItem.getQuantity()));
         cart.setTotalPrice(cart.getTotalPrice().add(itemTotalPrice));
         cart.setListingsQuantity(cart.getListingsQuantity() + cartItem.getQuantity());
+        cartItem.setCartItemId(null);
         cartRepository.save(cart);
-        return cartItemRepository.save(cartItem);
+        return cartItem;
     }
 
     public CartItem deleteCartItem(UUID cartItemId) {

@@ -4,6 +4,7 @@ import com.campushub.backend.dtos.cartItem.CartItemRequestDTO;
 import com.campushub.backend.dtos.cartItem.CartItemResponseDTO;
 import com.campushub.backend.models.cart.CartItem;
 import com.campushub.backend.services.cart.CartItemService;
+import com.campushub.backend.services.cart.CartService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.modelmapper.ModelMapper;
@@ -26,6 +27,9 @@ public class CartItemController {
     CartItemService cartItemService;
 
     @Autowired
+    CartService cartService;
+
+    @Autowired
     ModelMapper modelMapper;
 
     @Autowired
@@ -33,12 +37,13 @@ public class CartItemController {
 
     @PostMapping("/create-cart-item")
     @Operation(summary = "Create cart item",
-            description = "Adds a cart item into a specific cart. Returns the created cart item's details.")
+            description = "Adds a cart item into a specific cart using the carts id. Returns the created cart item's details.")
     public ResponseEntity<CartItemResponseDTO> createCartItem(@RequestBody CartItemRequestDTO cartItemRequestDTO) {
         if (!featureManager.isActive(CREATE_CART_ITEM)) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
         CartItem cartItem = modelMapper.map(cartItemRequestDTO, CartItem.class);
+        cartItem.setCart(cartService.findCartById(cartItemRequestDTO.getCartId()));
         CartItem createdCartItem = cartItemService.createCartItem(cartItem);
         CartItemResponseDTO cartItemResponseDTO = modelMapper.map(createdCartItem, CartItemResponseDTO.class);
         return new ResponseEntity<>(cartItemResponseDTO, HttpStatus.OK);

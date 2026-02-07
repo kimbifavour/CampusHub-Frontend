@@ -1,4 +1,4 @@
-package com.campushub.backend.exceptions;
+package com.campushub.backend.exceptions.category;
 
 public class CategoryNotFoundException extends RuntimeException {
     public CategoryNotFoundException(String message) {

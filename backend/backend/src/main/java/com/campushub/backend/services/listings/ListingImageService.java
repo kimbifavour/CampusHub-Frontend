@@ -2,8 +2,8 @@ package com.campushub.backend.services.listings;
 
 import com.campushub.backend.models.listings.Listing;
 import com.campushub.backend.models.listings.ListingImage;
-import com.campushub.backend.repositories.ListingImageRepository;
-import com.campushub.backend.repositories.ListingRepository;
+import com.campushub.backend.repositories.listing.ListingImageRepository;
+import com.campushub.backend.repositories.listing.ListingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

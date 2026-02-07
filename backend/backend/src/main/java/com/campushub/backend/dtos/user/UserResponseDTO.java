@@ -33,4 +33,6 @@ public class UserResponseDTO {
 
     private LocalDateTime updatedAt;
 
+    private UUID cartID;
+
 }

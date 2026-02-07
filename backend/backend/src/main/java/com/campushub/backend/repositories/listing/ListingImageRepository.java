@@ -1,4 +1,4 @@
-package com.campushub.backend.repositories;
+package com.campushub.backend.repositories.listing;
 
 import com.campushub.backend.models.listings.ListingImage;
 import org.springframework.data.jpa.repository.JpaRepository;

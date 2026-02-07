@@ -1,4 +1,4 @@
-package com.campushub.backend.exceptions;
+package com.campushub.backend.exceptions.listing;
 
 public class ListingNotFoundException extends RuntimeException {
 

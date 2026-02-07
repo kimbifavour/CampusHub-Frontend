@@ -1,11 +1,14 @@
 package com.campushub.backend.services.listings;
 
 import com.campushub.backend.enums.listings.ListingStatus;
-import com.campushub.backend.exceptions.ListingNotFoundException;
+import com.campushub.backend.exceptions.listing.BuyerNotFoundException;
+import com.campushub.backend.exceptions.listing.CantBuyOwnListingException;
+import com.campushub.backend.exceptions.listing.ListingNotAvailableException;
+import com.campushub.backend.exceptions.listing.ListingNotFoundException;
 import com.campushub.backend.models.listings.Listing;
 import com.campushub.backend.models.user.User;
-import com.campushub.backend.repositories.ListingRepository;
-import com.campushub.backend.repositories.UserRepository;
+import com.campushub.backend.repositories.listing.ListingRepository;
+import com.campushub.backend.repositories.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
@@ -67,23 +70,28 @@ public class ListingService {
         return listing;
     }
 
+    public Listing getListingById(UUID listingId) {
+        return listingRepository.findById(listingId)
+                .orElseThrow(() -> new ListingNotFoundException("Listing not found with id: " + listingId));
+    }
+
     @Transactional
     public Listing buyListing(UUID listingId, UUID buyerId) throws Exception{
         Listing listing = listingRepository.findById(listingId)
-                .orElseThrow(() -> new Exception("Listing not found with id: " + listingId));
+                .orElseThrow(() -> new ListingNotFoundException("Listing not found with id: " + listingId));
 
         User buyer = userRepository.findById(buyerId)
-                .orElseThrow(() -> new Exception("Buyer not found with id: " + buyerId));
+                .orElseThrow(() -> new BuyerNotFoundException("Buyer not found with id: " + buyerId));
 
         if (listing.getListingStatus() != ListingStatus.PUBLISHED) {
-            throw new Exception("Listing is not available for purchase");
+            throw new ListingNotAvailableException("Listing is not available for purchase");
         }
 
         if (listing.getUser().getId().equals(buyerId)) {
-            throw new Exception("Cannot buy your own listing");
+            throw new CantBuyOwnListingException("Cannot buy your own listing");
         }
 
-        listing.setBuyer(buyer);
+        buyer.addPurchase(listing);
         listing.setListingStatus(ListingStatus.SOLD);
 
         return listingRepository.save(listing);

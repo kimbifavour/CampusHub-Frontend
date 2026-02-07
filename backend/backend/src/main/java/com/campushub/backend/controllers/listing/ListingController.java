@@ -1,6 +1,5 @@
-package com.campushub.backend.controllers;
+package com.campushub.backend.controllers.listing;
 
-import com.campushub.backend.dtos.category.CategoryResponseDTO;
 import com.campushub.backend.dtos.listing.ListingRequestDTO;
 import com.campushub.backend.dtos.listing.ListingResponseDTO;
 import com.campushub.backend.enums.listings.ListingStatus;
@@ -10,6 +9,8 @@ import com.campushub.backend.models.user.User;
 import com.campushub.backend.services.listings.CategoryService;
 import com.campushub.backend.services.listings.ListingService;
 import com.campushub.backend.services.user.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ import static com.campushub.backend.configurations.togglz.Features.*;
 
 @RestController
 @RequestMapping("/listings")
+@Tag(name = "Listings", description = "Listing related operations")
 public class ListingController {
 
     @Autowired
@@ -45,6 +47,10 @@ public class ListingController {
     CategoryService categoryService;
 
     @PostMapping("/create-listing")
+    @Operation(
+            summary = "Create Listing",
+            description = "Creates a new listing for a certain user. Returns the created listing details."
+    )
     public ResponseEntity<ListingResponseDTO> createListing(
             @Valid @RequestBody ListingRequestDTO listingRequestDTO) throws Exception {
 
@@ -83,6 +89,10 @@ public class ListingController {
     }
 
     @PutMapping("/buy-listing/{listingId}")
+    @Operation(
+            summary = "Buy Listing",
+            description = "Marks a listing as sold to a buyer using the listing ID and buyer ID. Returns the updated listing."
+    )
     public ResponseEntity<ListingResponseDTO> buyListing(
             @PathVariable UUID listingId,
             @RequestParam UUID buyerId) throws Exception {
@@ -106,6 +116,10 @@ public class ListingController {
     }
 
     @GetMapping("/get-listings")
+    @Operation(
+            summary = "Get All Listings",
+            description = "Retrieves a list of all listings in the system."
+    )
     public ResponseEntity<List<ListingResponseDTO>> getAllListings() {
         if (!featureManager.isActive(GET_ALL_LISTINGS)) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
@@ -118,6 +132,10 @@ public class ListingController {
     }
 
     @GetMapping("/get-listings-by-user/{userId}")
+    @Operation(
+            summary = "Get Listings by User",
+            description = "Retrieves all listings posted by a specific user using the user ID and returns them in a list."
+    )
     public ResponseEntity<List<ListingResponseDTO>> getAllListingsByUser(@PathVariable UUID userId) {
         if (!featureManager.isActive(GET_ALL_LISTINGS_BY_USER)) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
@@ -130,6 +148,10 @@ public class ListingController {
     }
 
     @GetMapping("/get-listings-by-category/{categoryName}")
+    @Operation(
+            summary = "Get Listings by Category",
+            description = "Retrieves all listings under a specific category using the category name and returns them in a list."
+    )
     public ResponseEntity<List<ListingResponseDTO>> getAllListingsByCategory(@PathVariable String categoryName) {
         if (!featureManager.isActive(GET_ALL_LISTINGS_BY_CATEGORY)) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
@@ -142,6 +164,10 @@ public class ListingController {
     }
 
     @DeleteMapping("/delete-listing/{listingId}")
+    @Operation(
+            summary = "Delete Listing",
+            description = "Deletes a listing by its ID and returns the deleted listing details."
+    )
     public ResponseEntity<ListingResponseDTO> deleteListing(@PathVariable UUID listingId) {
         if (!featureManager.isActive(DELETE_LISTING)) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);

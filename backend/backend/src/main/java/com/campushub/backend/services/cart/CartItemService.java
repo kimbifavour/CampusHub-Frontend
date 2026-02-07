@@ -41,12 +41,12 @@ public class CartItemService {
         cart.setListingsQuantity(cart.getListingsQuantity() + cartItem.getQuantity());
         cartItem.setCartItemId(null);
         cartRepository.save(cart);
-        return cartItem;
+        return cartItemRepository.save(cartItem);
     }
 
     public CartItem deleteCartItem(UUID cartItemId) {
         CartItem cartItem = cartItemRepository.findById(cartItemId)
-                .orElseThrow(() -> new CartItemNotFoundException("User not found with id: " + cartItemId));
+                .orElseThrow(() -> new CartItemNotFoundException("Cart Item not found with id: " + cartItemId));
         cartItemRepository.deleteById(cartItemId);
         return cartItem;
     }

@@ -20,7 +20,7 @@ public class WantedItem {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "item_id", nullable = false, unique = true)
-    private UUID itemId;
+    private UUID wantedItemId;
 
     @Column(name = "title", nullable = false, length = 100)
     private String title;

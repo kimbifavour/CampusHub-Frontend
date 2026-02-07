@@ -1,7 +1,7 @@
-package com.campushub.backend.services.wanteditem;
+package com.campushub.backend.services.wantedItem;
 
 import com.campushub.backend.models.wanteditems.WantedItem;
-import com.campushub.backend.repositories.wanteditem.WantedItemRepository;
+import com.campushub.backend.repositories.wantedItem.WantedItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

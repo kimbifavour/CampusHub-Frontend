@@ -1,11 +1,11 @@
-package com.campushub.backend.controllers.WantedItem;
+package com.campushub.backend.controllers.wantedItem;
 
-import com.campushub.backend.dtos.WantedItem.WantedItemRequestDTO;
-import com.campushub.backend.dtos.WantedItem.WantedItemResponseDTO;
+import com.campushub.backend.dtos.wantedItem.WantedItemRequestDTO;
+import com.campushub.backend.dtos.wantedItem.WantedItemResponseDTO;
 import com.campushub.backend.models.listings.Category;
 import com.campushub.backend.models.user.User;
 import com.campushub.backend.models.wanteditems.WantedItem;
-import com.campushub.backend.services.WantedItem.WantedItemService;
+import com.campushub.backend.services.wantedItem.WantedItemService;
 import com.campushub.backend.services.listings.CategoryService;
 import com.campushub.backend.services.user.UserService;
 import io.swagger.v3.oas.annotations.Operation;

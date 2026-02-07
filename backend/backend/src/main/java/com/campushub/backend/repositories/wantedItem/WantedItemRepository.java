@@ -1,4 +1,4 @@
-package com.campushub.backend.repositories.wanteditem;
+package com.campushub.backend.repositories.wantedItem;
 
 import com.campushub.backend.models.wanteditems.WantedItem;
 import org.springframework.data.jpa.repository.JpaRepository;

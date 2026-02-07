@@ -58,6 +58,7 @@ public class CartItemController {
         }
         CartItem createdCartItem = cartItemService.createCartItem(cartItem);
         CartItemResponseDTO cartItemResponseDTO = modelMapper.map(createdCartItem, CartItemResponseDTO.class);
+        cartItemResponseDTO.setCartItemId(createdCartItem.getCartItemId());
         cartItemResponseDTO.setListingId(createdCartItem.getListing().getListingId());
         cartItemResponseDTO.setParentCartId(createdCartItem.getCart().getCartId());
         cartItemResponseDTO.setTotalPrice(createdCartItem.getUnitPrice()

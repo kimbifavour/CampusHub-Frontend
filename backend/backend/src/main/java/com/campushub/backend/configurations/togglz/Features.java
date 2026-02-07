@@ -58,6 +58,25 @@ public enum Features implements Feature {
     DELETE_LISTING,
 
     //-----------------------
+    // Wanted Item APIs
+    //-----------------------
+    @Label("WANTEDITEM - CreateWantedItem")
+    @EnabledByDefault
+    CREATE_WANTED_ITEM,
+
+    @Label("WANTEDITEM - GetAllWantedItems")
+    @EnabledByDefault
+    GET_ALL_WANTED_ITEMS,
+
+    @Label("WANTEDITEM - GetAllWantedItemsByUser")
+    @EnabledByDefault
+    GET_ALL_WANTED_ITEMS_BY_USER,
+
+    @Label("WANTEDITEM - DeleteWantedItem")
+    @EnabledByDefault
+    DELETE_WANTED_ITEM,
+
+    //-----------------------
     // CATEGORY APIs
     //-----------------------
     @Label("CATEGORY - CreateCategory")

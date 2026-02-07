@@ -41,7 +41,7 @@ public class CartItemService {
         cart.setListingsQuantity(cart.getListingsQuantity() + cartItem.getQuantity());
         cartItem.setCartItemId(null);
         cartRepository.save(cart);
-        return cartItemRepository.save(cartItem);
+        return cartItem;
     }
 
     public CartItem deleteCartItem(UUID cartItemId) {

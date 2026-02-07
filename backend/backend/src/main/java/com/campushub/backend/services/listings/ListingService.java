@@ -70,6 +70,11 @@ public class ListingService {
         return listing;
     }
 
+    public Listing getListingById(UUID listingId) {
+        return listingRepository.findById(listingId)
+                .orElseThrow(() -> new ListingNotFoundException("Listing not found with id: " + listingId));
+    }
+
     @Transactional
     public Listing buyListing(UUID listingId, UUID buyerId) throws Exception{
         Listing listing = listingRepository.findById(listingId)

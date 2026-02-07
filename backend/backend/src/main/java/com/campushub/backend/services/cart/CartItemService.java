@@ -23,6 +23,9 @@ public class CartItemService {
     CartRepository cartRepository;
 
     public CartItem createCartItem(CartItem cartItem) {
+        if (cartItem.getListing() == null || cartItem.getListing().getListingId() == null) {
+            throw new IllegalArgumentException("Listing is required to create a cart item");
+        }
         Cart cart = cartRepository.findById(cartItem.getCart().getCartId())
                 .orElseThrow(() -> new CartNotFoundException("Cart not found"));
         if (cart.getCartItems() == null) {
@@ -38,7 +41,7 @@ public class CartItemService {
         cart.setListingsQuantity(cart.getListingsQuantity() + cartItem.getQuantity());
         cartItem.setCartItemId(null);
         cartRepository.save(cart);
-        return cartItem;
+        return cartItemRepository.save(cartItem);
     }
 
     public CartItem deleteCartItem(UUID cartItemId) {
